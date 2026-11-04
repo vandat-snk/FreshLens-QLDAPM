@@ -1,4 +1,9 @@
-# Bàn giao FreshLens CNN
+# Bàn giao FreshLens — Quản lý dự án phần mềm
+
+Repository học phần: https://github.com/vandat-snk/FreshLens-QLDAPM. Sử dụng nhánh `main` của repo này để lấy bản tích hợp.
+
+Hướng dẫn dưới đây mô tả việc cài đặt và kiểm tra sản phẩm kỹ thuật được kế thừa. Các kết quả có ngày chạy ở phần cuối là bằng chứng lịch sử của nền tảng tại commit `47b035e`, không phải một đợt nghiệm thu mới của học phần Quản lý dự án phần mềm. Hồ sơ quản lý dự án và tiêu chí bàn giao của học phần được bổ sung theo yêu cầu giảng viên.
+
 
 Bản nộp dùng EfficientNet B0 tám lớp, fruit-first, gate prototype/logistic và quality rejection.
 Giữ nguyên checkpoint và ngưỡng đã lưu. Kiểm thử phần mềm không thay thế đánh giá camera độc lập.
@@ -9,7 +14,7 @@ Windows có Python 3.13 và Internet: mở RUN_FRESHLENS.bat. Nếu thiếu .ven
 chạy kiểm thử runtime rồi mở app. Lần sau dùng lại môi trường. Hoặc:
 
 ```powershell
-powershell -File SETUP_FRESHLENS.ps1 -Device cpu
+powershell -NoProfile -ExecutionPolicy Bypass -File .\SETUP_FRESHLENS.ps1 -Device cpu
 .\run_app.bat
 ```
 

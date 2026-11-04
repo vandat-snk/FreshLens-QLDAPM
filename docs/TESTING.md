@@ -1,10 +1,10 @@
-# FreshLens Stage integration suite - Final integration check
+# FreshLens integration checks — Quản lý dự án phần mềm
 
-Run from the project root:
+Run from the `FreshLens-QLDAPM` repository root. Replace the example image root below with the actual location of your original dataset:
 
 ```cmd
 .\.venv\Scripts\python.exe -m tests.integration.TEST_FULL_PIPELINE_V2 ^
-  --root "E:\VanDat_\XuLyAnh\FreshLens_Pro\FreshLens\dataset" ^
+  --root "D:\FreshLens_data\original_dataset" ^
   --data "data\cnn_dataset_v3"
 ```
 

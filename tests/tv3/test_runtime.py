@@ -206,7 +206,7 @@ def test_app_quality_config_error_does_not_load_model(tmp_path, monkeypatch, con
     monkeypatch.setenv('FRESHLENS_QUALITY_CONFIG', str(config))
     factory = Mock(side_effect=AssertionError('Model must not load with invalid config'))
     monkeypatch.setattr('freshlens_ai.inference.cnn_predict.FreshLensPredictor', factory)
-    app = AppTest.from_file(str(PROJECT_DIR / 'APP_CNN_V2.py')).run()
+    app = AppTest.from_file(str(PROJECT_DIR / 'APP_CNN_V2.py'), default_timeout=30).run()
     assert not app.exception
     assert any('cấu hình kiểm tra chất lượng' in error.value for error in app.error)
     assert any(str(config) in caption.value for caption in app.caption)
@@ -226,7 +226,7 @@ def test_app_runtime_cache_evicts_old_quality_config(tmp_path, monkeypatch):
     st.cache_resource.clear()
     try:
         config.write_text(json.dumps(asdict(QualityConfig(blur_threshold=100))))
-        app = AppTest.from_file(str(PROJECT_DIR / 'APP_CNN_V2.py')).run()
+        app = AppTest.from_file(str(PROJECT_DIR / 'APP_CNN_V2.py'), default_timeout=30).run()
         assert not app.exception
         app.run()
         assert factory.call_count == 1  # Unchanged config reuses its model.

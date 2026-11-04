@@ -1,4 +1,4 @@
-# FreshLens CNN V2
+# FreshLens — Quản lý dự án phần mềm
 
 ![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.10-EE4C2C?logo=pytorch&logoColor=white)
@@ -10,6 +10,20 @@
 FreshLens is an image-classification project for recognizing the **fruit type** and the visible **fresh / rotten condition** of one main fruit in a photo.
 
 The current production pipeline is the modular **CNN V2** implementation based on **EfficientNet-B0 + PyTorch**. The older SVM and step-by-step development folders are retained only for reference, audit, and behavior-equivalence testing.
+
+## Học phần Quản lý dự án phần mềm
+
+Repository này phục vụ học phần **Quản lý dự án phần mềm**, sử dụng FreshLens — nhận diện loại trái cây và phân loại tình trạng tươi/hỏng từ ảnh — làm sản phẩm của dự án nhóm.
+
+Repo làm việc: [vandat-snk/FreshLens-QLDAPM](https://github.com/vandat-snk/FreshLens-QLDAPM). Nhánh tích hợp là `main`; mỗi thay đổi được phát triển trên nhánh riêng và kiểm tra trước khi tích hợp.
+
+Mã nguồn, mô hình và kết quả thực nghiệm tại commit `47b035e` là nền tảng được kế thừa. Các kết quả đó không tự trở thành kết quả phát triển mới của học phần này. Công việc mới cần có yêu cầu, người phụ trách, ước lượng, tiến độ và bằng chứng bàn giao tương ứng.
+
+Trọng tâm quản lý gồm xác định phạm vi, phân rã công việc (WBS), phân công nguồn lực, lập kế hoạch tiến độ, quản lý rủi ro và thay đổi, theo dõi chất lượng và nghiệm thu. Hồ sơ kế hoạch và tiến độ thực tế được bổ sung theo yêu cầu học phần, không mặc định đã hoàn thành.
+
+- [Phân công kỹ thuật của nhóm](docs/TEAM_ASSIGNMENT.md)
+- [Hướng dẫn bàn giao và chạy ứng dụng](docs/SUBMISSION.md)
+- [Hướng dẫn kiểm thử](docs/TESTING.md)
 
 ## Table of Contents
 
@@ -50,45 +64,21 @@ The current production pipeline is the modular **CNN V2** implementation based o
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/vandat-snk/FreshLens.git
-cd FreshLens
+git clone https://github.com/vandat-snk/FreshLens-QLDAPM.git
+cd FreshLens-QLDAPM
 ```
 
-### 2. Create a virtual environment
+### 2. Install and run on Windows (CPU)
 
-```cmd
-py -m venv .venv
+Install Python 3.13 with the Windows Python launcher. An internet connection is needed for the first installation. From the cloned repository, run:
+
+```powershell
+.\RUN_FRESHLENS.bat
 ```
 
-Activate it on Windows:
+The launcher creates the CPU environment on first use, runs runtime checks, and starts the app. Open http://localhost:8501 if your browser does not open automatically. Upload a photo of one supported fruit, then select **Phân tích ảnh**.
 
-```cmd
-.venv\Scripts\activate
-```
-
-### 3. Install dependencies
-
-```cmd
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python -m pip install -r requirements-torch-cu128.txt
-```
-
-> `requirements-torch-cu128.txt` installs the validated CUDA 12.8
-> PyTorch environment. Use a compatible PyTorch build if your machine
-> uses a different CUDA version or CPU-only inference.
-
-### 4. Run FreshLens
-
-```cmd
-run_app.bat
-```
-
-Or run Streamlit directly:
-
-```cmd
-python -m streamlit run APP_CNN_V2.py
-```
+For manual setup, GPU options, and verification steps, see [the handover guide](docs/SUBMISSION.md).
 
 The application supports:
 
@@ -265,7 +255,7 @@ Do not replace this rule with raw 8-class `argmax` unless a new experiment is ex
 ## Repository structure
 
 ```text
-FreshLens/
+FreshLens-QLDAPM/
 ├── freshlens_ai/                  # Production CNN V2 package
 │   ├── data/                      # Dataset loading and preprocessing
 │   ├── models/                    # EfficientNet-B0 and checkpoint utilities
@@ -416,7 +406,7 @@ Its JSON includes raw fruit/condition scores, gate score and threshold, final ac
 status, quality diagnostics, and latency. Raw predictions remain available for audit
 when rejected; check `supported` before presenting them as accepted results.
 The matching gate is required. Use `--gate-npz` and `--gate-meta` to override its paths.
-CLI quality rejection is opt-in with `--quality`; use this flag when comparing against the Nhi UI, which always enables quality checks.
+CLI quality rejection is opt-in with `--quality`; use this flag when comparing against the application UI, which always enables quality checks.
 App, CLI and evaluator share `config/quality.json`. CLI/evaluator accept
 `--quality-config`; the app accepts the `FRESHLENS_QUALITY_CONFIG` environment variable.
 Evaluation exports the effective `quality_config.json` and its hash for reuse.
@@ -518,7 +508,7 @@ To inspect the builder options:
 ```
 
 TV3 uses the saved threshold and fails explicitly if gate loading or inference fails.
-The Nhi UI always enables quality rejection. Its thresholds still need real-image calibration.
+The application UI always enables quality rejection. Its thresholds still need real-image calibration.
 CLI and evaluator keep quality opt-in via `--quality` for CNN baseline experiments.
 TTA is disabled pending a separate benchmark and compatible gate calibration.
 
@@ -626,7 +616,7 @@ After the repository cleanup is complete, future work should be done as new cont
 
 **Production baseline:** EfficientNet-B0 CNN V2 + fruit-first decoding + calibrated open-set support gate.
 
-## Bản bàn giao và chạy nhanh trên Windows
+## Bàn giao học phần Quản lý dự án phần mềm và chạy nhanh trên Windows
 
 Mở `RUN_FRESHLENS.bat` (cần Python 3.13 và Internet khi cài lần đầu).
 Script tạo môi trường CPU nếu chưa có, kiểm tra runtime rồi mở app.
